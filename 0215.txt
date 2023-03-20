@@ -1,0 +1,134 @@
+
+
+
+< 2월 15일 리액트 복습>
+
+npx create-react-app exam-reat -> 만들기
+
+상태관리
+React ----> SPA
+state ---> 업데이트되어야만 리렌더(화면이 다시 그려지는것)
+state = 10 (로 안됨)
+var ---> 업데이트 되어도 리렌더 되지않음
+var = 10
+리렌더될때 다시 초기화
+ref ---> 마운트 되었을때 부터 언마운트 될때까지 유지되는 값
+useState() --> [상태,상태를 업데이트 해주는 함수]
+상태 = 20 (안됨)
+상태가 다시 그려질때 리렌더가 됨(상태로 만들어야함, 변수x)
+useReducer()
+useRef()
+useMemo()
+useCallback()
+useEffect()
+
+
+
+< 컴포넌트 >
+프로그래밍에서 재사용이 가능한 각각의 독립된 모듈이다.
+
+< jsx 구문 >
+태그는 하나만 사용해야함
+태그는 꼭 닫혀있어야함
+jsx 구문에서 자바스크립트 값 사용하기
+{ if? 못씀}
+{ isLOgin ? "true" : "false" }
+<div className = "이라고 해야 클래스네임 지정가능"></div>
+
+인라인 스타일 작성시 객체 형태로 작성
+html
+<div style = "font-size:24px"></div>
+jsx
+<div style = {style}></div>
+const style = {
+	fontSize:"24px"
+}
+return (
+	<>
+		<div></div>
+		<div></div>
+		<img src="" />
+	</>
+)
+
+
+
+
+상태만들기 2!!!
+useState(상태초기값);  ---> [state, setState]
+setState(상태값)
+useReducer(리듀서함수, 상태초기값) 
+---> [상태, dispatch]
+dispatch() ----> 리듀서 함수(상태가 업데이트 되는 경우의 수)
+요청에 따라 상태를 업데이트 하도록 구현
+"A" state+5000
+"B" state-5000
+
+1
++,-
+두가지
+더하기 요청이 왔을때 1씩 더한다.
+빼기 요청이 왔을때 1씩 빼준다.
+function reducer(state,action){
+	switch(action.type){
+		case "increase":
+		return state+1;
+		case "decrease":
+		return state-1;
+	}
+}
+const [state,setState] = useState(0)
+const [state, dispatch] = useReducer(reducer,0)
+reducer() --->할수없음 ! 은행직원임 입금해주셈 출금해주셈 요청만 가능함
+useRecuder(reducer,0)---->[state, dispatch 함수]
+dispatch({type:"increase"}) -->액션을 발생, 리듀서 호출함
+
+***암기*** 
+useState (초기값) -> [상태,상태업데이값]
+useReducer (리듀서함수,초기값) --->  상태와 디스패치(액션객체 (type이 있어야함))
+const [number,dispatch] = useReducer(reducer,0);
+const [state,setState] = useState(0)
+const [state, dispatch] = useReducer(reducer,0)
+
+
+
+<2월 20일>
+npx  create-react-app ts-react --template typescript
+npm install cra-template-typescript -g
+
+1.props 전달시 props타입을 interface로 지정해야한다.
+ex>
+interface HelloProps = {
+	name:string
+}
+const Hello ({name:HelloProps}) => {}
+
+2.상태의 타입의 지정
+상태타입이 변경되지 않는 경우는 생략해도됨
+상태가 null일수도 있고 아닐수도 있을때 제네릭을 활용하여 지정
+ex>
+const [state, setState] = useState<number>(0)
+ //타입유추: 제네릭 타입생략가능
+type stateobject = { name:string,  age:number }
+const [state,setState] = useState<null  | object>(생략도 가능함)(null)
+
+3. 이벤트 객체의 타입지정
+onChange 이벤트 객체의 타입
+React.ChangeEvent<HTMLInputElement>
+onSubmit 이벤트 객체의 타입
+React.FormEvent<HTMLFormElement>
+
+4.useReducer 사용하기
+reducer함수생성
+//올수 있는 액션객체를 유니언 타입으로 쭉 나열
+type Action = {type:"INCREASE"} | {type: "DECREASE"}
+function reducer(state:number, action:Action):number{
+
+}
+
+
+
+
+
+
+
